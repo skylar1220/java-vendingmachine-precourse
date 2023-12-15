@@ -20,7 +20,7 @@ public class VendingMachine {
     }
 
     public boolean isBuyingAvailable() {
-        return products.isEmpty() && products.hasProductofPriceOver(moneyInserted);
+        return !products.isEmpty() && products.hasProductofPriceOver(moneyInserted);
     }
 
     public void checkAvailableProduct(ProductName productName) {
@@ -34,7 +34,11 @@ public class VendingMachine {
     }
 
     public CoinStorage getCustomerChanges() {
-        CoinStorage requiredCoins = CoinStorage.fromMoney(moneyInserted.getMoneyInserted());
-        return vendingCoinStorage.getAvailableChanges(requiredCoins);
+//        CoinStorage requiredCoins = CoinStorage.fromMoney(moneyInserted.getMoneyInserted());
+        return vendingCoinStorage.getAvailableChanges(moneyInserted.getMoneyInserted());
+    }
+
+    public MoneyInserted getMoneyInserted() {
+        return moneyInserted;
     }
 }

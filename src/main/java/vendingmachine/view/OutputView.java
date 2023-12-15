@@ -4,6 +4,7 @@ import java.util.Map.Entry;
 import vendingmachine.domain.Coin;
 import vendingmachine.domain.CoinStorage;
 import vendingmachine.domain.MoneyInserted;
+import vendingmachine.domain.VendingMachine;
 import vendingmachine.view.formatter.OutputFomatter;
 import vendingmachine.view.printer.Printer;
 
@@ -44,5 +45,9 @@ public class OutputView {
         printer.printLine("잔돈");
         customerChangesStorage.getCoinStorage().entrySet().forEach(this::printCoinStorageDetail);
 
+    }
+
+    public void printMoneyInserted(VendingMachine vendingMachine) {
+        printer.printLine("투입 금액: %d원", vendingMachine.getMoneyInserted().getMoneyInserted());
     }
 }

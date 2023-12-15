@@ -69,16 +69,19 @@ public class CoinStorage {
         return coinStorage;
     }
 
-    public CoinStorage getAvailableChanges(CoinStorage requiredCoins) {
+    public CoinStorage getAvailableChanges(int inputMoney) {
         Map<Coin, Integer> availableCoinStorage = new EnumMap<>(Coin.class);
         for (Coin coin : Coin.values()) {
+            int requiredCoinCount = coin.calculateCount(inputMoney);
             int coinStock = this.coinStorage.get(coin);
-            int requiredCoinCount = requiredCoins.getCoinStorage().get(coin);
             if (coinStock >= requiredCoinCount) {
                 availableCoinStorage.put(coin, requiredCoinCount);
+                inputMoney -= coin.calculateByCount(requiredCoinCount);
+
             }
             if (coinStock < requiredCoinCount) {
                 availableCoinStorage.put(coin, coinStock);
+                inputMoney -= coin.calculateByCount(coinStock);
             }
         }
         return CoinStorage.from(availableCoinStorage);

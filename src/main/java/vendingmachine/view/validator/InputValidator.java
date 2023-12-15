@@ -31,24 +31,27 @@ public class InputValidator {
         validateFormat(PRODUCT_SEPARATOR, rawProducts, target);
         List<String> products = Converter.splitToList(PRODUCT_SEPARATOR, rawProducts);
         products.forEach(product -> validateProductFormat(PRODUCT_DETAILS_SEPARATOR, product, target));
-        products.forEach(product -> validateProductName(PRODUCT_DETAILS_SEPARATOR, product, target));
-        products.forEach(product -> validateProductPrice(PRODUCT_DETAILS_SEPARATOR, product, target));
-        products.forEach(product -> validateProductCount(PRODUCT_DETAILS_SEPARATOR, product, target));
+        products.forEach(product -> validateProductName(PRODUCT_DETAILS_SEPARATOR, product, "상품명"));
+        products.forEach(product -> validateProductPrice(PRODUCT_DETAILS_SEPARATOR, product, "상품가격"));
+        products.forEach(product -> validateProductCount(PRODUCT_DETAILS_SEPARATOR, product, "상품수량"));
     }
 
-    private void validateProductName(String separator, String product, String target) {
+    private void validateProductName(String separator, String rawProduct, String target) {
+        String product = rawProduct.substring(1, rawProduct.length() - 1);
         String productName = Converter.splitValue(separator, 0, product);
         StringValidator.validateBlank(productName, target);
     }
 
-    private void validateProductPrice(String separator, String product, String target) {
+    private void validateProductPrice(String separator, String rawProduct, String target) {
+        String product = rawProduct.substring(1, rawProduct.length() - 1);
         String productPrice = Converter.splitValue(separator, 1, product);
         StringValidator.validateBlank(productPrice, target);
         StringValidator.validateNumeric(productPrice, target);
         StringValidator.validateIntegerRange(productPrice, target);
     }
 
-    private void validateProductCount(String separator, String product, String target) {
+    private void validateProductCount(String separator, String rawProduct, String target) {
+        String product = rawProduct.substring(1, rawProduct.length() - 1);
         String productCount = Converter.splitValue(separator, 2, product);
         StringValidator.validateBlank(productCount, target);
         StringValidator.validateNumeric(productCount, target);
@@ -86,25 +89,4 @@ public class InputValidator {
     public void validateSelectedProduct(String selectedProduct, String target) {
         StringValidator.validateBlank(selectedProduct, target);
     }
-
-//    public static void validateNumber(String template, String target) {
-//        StringValidator.validateBlank(template, target);
-//        StringValidator.validateNumeric(template, target);
-//        StringValidator.validateIntegerRange(template, target);
-//    }
-//
-//    public void validatList(String template, String target) {
-//        StringValidator.validateBlank(template, target);
-//        GeneralValidator.validateSingleSeparator(SEPARATOR, template, target);
-//        GeneralValidator.validateStartsWith(SEPARATOR, template, target);
-//        GeneralValidator.validateEndsWith(SEPARATOR, template, target);
-//        GeneralValidator.validateSplitCount(SEPARATOR, template, 2, target);
-//    }
-//
-//    public void validateRawList(String raw, String target) {
-//        validateFormat(SEPARATOR, raw, target);
-//        List<String> list = Converter.splitToList(SEPARATOR, raw);
-//        list.forEach(value -> validateEachFormat(VALUE_SEPARATOR, value, target));
-//        list.forEach(value -> validateEachValue(VALUE_SEPARATOR, value, target));
-//    }
 }

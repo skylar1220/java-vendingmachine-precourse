@@ -1,6 +1,9 @@
 package vendingmachine.view;
 
 
+import java.util.Arrays;
+import java.util.List;
+import java.util.stream.Collectors;
 import vendingmachine.domain.CoinStorage;
 import vendingmachine.domain.MoneyInserted;
 import vendingmachine.domain.ProductName;
@@ -34,9 +37,13 @@ public class InputView {
 
     public Products inputProducts() {
         printer.printLine("상품명과 가격, 수량을 입력해 주세요.");
-        String products = reader.readLine();
-        validator.validateProducts(products, "상품명과 가격, 수량");
-        return Products.of(Converter.splitToTrimedList(products, InputValidator.PRODUCT_SEPARATOR));
+        String rawProducts = reader.readLine();
+        validator.validateProducts(rawProducts, "상품명과 가격, 수량");
+        List<String> products = Arrays.stream(rawProducts.split(";"))
+                .map(String::trim)
+                .map(product -> product.substring(1, product.length() - 1))
+                .collect(Collectors.toList());
+        return Products.of(products);
     }
 
     public MoneyInserted inputMoneyInserted() {
@@ -52,11 +59,4 @@ public class InputView {
         validator.validateSelectedProduct(selectedProduct, "구매할 상품명");
         return new ProductName(selectedProduct);
     }
-
-//    public Template inputTemplate() {
-//        printer.printLine("");
-//        String template = reader.readLine();
-//        validator.validate(template, "템플릿");
-//        return new Template();
-//    }
 }

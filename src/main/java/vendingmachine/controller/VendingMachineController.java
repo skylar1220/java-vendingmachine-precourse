@@ -20,34 +20,30 @@ public class VendingMachineController {
     }
 
     public void run() {
-        CoinStorage vendingCoinStorage = inputView.inputCointStorage();
+        CoinStorage vendingCoinStorage = readWithRetry(inputView::inputCointStorage);
         outputView.printVendingCoinStorage(vendingCoinStorage);
-        Products products = inputView.inputProducts();
+        Products products = readWithRetry(inputView::inputProducts);
         VendingMachine vendingMachine = VendingMachine.of(vendingCoinStorage, products);
 
-        MoneyInserted moneyInserted = inputView.inputMoneyInserted();
+        MoneyInserted moneyInserted = readWithRetry(inputView::inputMoneyInserted);
         vendingMachine.insertMoney(moneyInserted);
         outputView.printMoneyInserted(moneyInserted);
 
-        if (!vendingMachine.isBuyingAvailable()) {
-            return; // 잔돈반환으로 가기
-        }
-
-        ProductName selectedProductName = getSelectedProductName(vendingMachine);
-        vendingMachine.buy(selectedProductName);
-
-        if (vendingMachine.isBuyingAvailable()) {
-            return; // 상품명 입력으로 돌아가기
-        }
-        if (!vendingMachine.isBuyingAvailable()) {
-            return; // 잔돈반환으로 가기
+        while (vendingMachine.isBuyingAvailable()) {
+            buyProduct(vendingMachine);
+            outputView.printMoneyInserted(vendingMachine);
         }
         CoinStorage customerChangesStorage = vendingMachine.getCustomerChanges();
         outputView.printCustomerChanges(customerChangesStorage);
     }
 
+    private void buyProduct(VendingMachine vendingMachine) {
+        ProductName selectedProductName = readWithRetry(this::getSelectedProductName, vendingMachine);
+        vendingMachine.buy(selectedProductName);
+    }
+
     private ProductName getSelectedProductName(VendingMachine vendingMachine) {
-        ProductName selectedProductName = inputView.inputSelectedProduct();
+        ProductName selectedProductName = readWithRetry(inputView::inputSelectedProduct);
         vendingMachine.checkAvailableProduct(selectedProductName);
         return selectedProductName;
     }
