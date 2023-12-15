@@ -4,8 +4,8 @@ import java.util.function.Function;
 import java.util.function.Supplier;
 import vendingmachine.domain.CoinStorage;
 import vendingmachine.domain.MoneyInserted;
-import vendingmachine.domain.ProductName;
-import vendingmachine.domain.Products;
+import vendingmachine.domain.product.ProductName;
+import vendingmachine.domain.product.Products;
 import vendingmachine.domain.VendingMachine;
 import vendingmachine.view.InputView;
 import vendingmachine.view.OutputView;
@@ -22,19 +22,24 @@ public class VendingMachineController {
     public void run() {
         CoinStorage vendingCoinStorage = readWithRetry(inputView::inputCointStorage);
         outputView.printVendingCoinStorage(vendingCoinStorage);
+
         Products products = readWithRetry(inputView::inputProducts);
         VendingMachine vendingMachine = VendingMachine.of(vendingCoinStorage, products);
 
         MoneyInserted moneyInserted = readWithRetry(inputView::inputMoneyInserted);
         vendingMachine.insertMoney(moneyInserted);
         outputView.printMoneyInserted(moneyInserted);
+        purchase(vendingMachine);
 
+        CoinStorage customerChangesStorage = vendingMachine.getCustomerChanges();
+        outputView.printCustomerChanges(customerChangesStorage);
+    }
+
+    private void purchase(VendingMachine vendingMachine) {
         while (vendingMachine.isBuyingAvailable()) {
             buyProduct(vendingMachine);
             outputView.printMoneyInserted(vendingMachine);
         }
-        CoinStorage customerChangesStorage = vendingMachine.getCustomerChanges();
-        outputView.printCustomerChanges(customerChangesStorage);
     }
 
     private void buyProduct(VendingMachine vendingMachine) {
@@ -45,6 +50,7 @@ public class VendingMachineController {
     private ProductName getSelectedProductName(VendingMachine vendingMachine) {
         ProductName selectedProductName = readWithRetry(inputView::inputSelectedProduct);
         vendingMachine.checkAvailableProduct(selectedProductName);
+        vendingMachine.validateBalacneAvailable(selectedProductName);
         return selectedProductName;
     }
 

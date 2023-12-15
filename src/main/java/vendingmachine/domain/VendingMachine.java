@@ -1,5 +1,9 @@
 package vendingmachine.domain;
 
+import vendingmachine.domain.product.Product;
+import vendingmachine.domain.product.ProductName;
+import vendingmachine.domain.product.Products;
+
 public class VendingMachine {
     private final CoinStorage vendingCoinStorage;
     private final Products products;
@@ -34,11 +38,15 @@ public class VendingMachine {
     }
 
     public CoinStorage getCustomerChanges() {
-//        CoinStorage requiredCoins = CoinStorage.fromMoney(moneyInserted.getMoneyInserted());
         return vendingCoinStorage.getAvailableChanges(moneyInserted.getMoneyInserted());
     }
 
     public MoneyInserted getMoneyInserted() {
         return moneyInserted;
+    }
+
+    public void validateBalacneAvailable(ProductName selectedProductName) {
+        Product product = products.findByName(selectedProductName);
+        moneyInserted.validateBalacneAvailable(product);
     }
 }

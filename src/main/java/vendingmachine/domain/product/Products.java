@@ -1,7 +1,8 @@
-package vendingmachine.domain;
+package vendingmachine.domain.product;
 
 import java.util.List;
 import java.util.stream.Collectors;
+import vendingmachine.domain.MoneyInserted;
 
 public class Products {
     private final List<Product> products;

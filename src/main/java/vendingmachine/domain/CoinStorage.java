@@ -74,15 +74,12 @@ public class CoinStorage {
         for (Coin coin : Coin.values()) {
             int requiredCoinCount = coin.calculateCount(inputMoney);
             int coinStock = this.coinStorage.get(coin);
-            if (coinStock >= requiredCoinCount) {
-                availableCoinStorage.put(coin, requiredCoinCount);
-                inputMoney -= coin.calculateByCount(requiredCoinCount);
 
-            }
-            if (coinStock < requiredCoinCount) {
-                availableCoinStorage.put(coin, coinStock);
-                inputMoney -= coin.calculateByCount(coinStock);
-            }
+            int availableCount = Math.min(requiredCoinCount, coinStock);
+            int remainingMoney = coin.calculateByCount(availableCount);
+
+            availableCoinStorage.put(coin, availableCount);
+            inputMoney -= remainingMoney;
         }
         return CoinStorage.from(availableCoinStorage);
     }

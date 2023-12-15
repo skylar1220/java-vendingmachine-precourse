@@ -1,4 +1,6 @@
-package vendingmachine.domain;
+package vendingmachine.domain.product;
+
+import vendingmachine.domain.MoneyInserted;
 
 public class ProductPrice {
     private final int productPrice;

@@ -16,11 +16,6 @@ public class OutputView {
         this.printer = printer;
     }
 
-//    public void printTemplate(Template rawTemplate) {
-//        int template = OutputFomatter.toTemplate(rawTemplate);
-//        printer.printLine("%d개", template);
-//    }
-
     public void printExceptionMessage(String message) {
         printer.printLine(ERROR_MESSAGE_FORMAT + message);
         printer.printEmptyLine();

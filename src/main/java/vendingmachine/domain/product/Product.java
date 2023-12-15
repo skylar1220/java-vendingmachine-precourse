@@ -1,5 +1,6 @@
-package vendingmachine.domain;
+package vendingmachine.domain.product;
 
+import vendingmachine.domain.MoneyInserted;
 import vendingmachine.util.converter.Converter;
 import vendingmachine.view.validator.InputValidator;
 

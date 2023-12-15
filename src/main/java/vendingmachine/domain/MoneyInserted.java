@@ -1,5 +1,7 @@
 package vendingmachine.domain;
 
+import vendingmachine.domain.product.Product;
+
 public class MoneyInserted {
     private int moneyInserted;
 
@@ -55,5 +57,11 @@ public class MoneyInserted {
 
     public void buy(Product product) {
         moneyInserted = product.calculateMoneyAfterBuying(moneyInserted);
+    }
+
+    public void validateBalacneAvailable(Product product) {
+        if (product.calculateMoneyAfterBuying(moneyInserted) < 0) {
+            throw new IllegalArgumentException("금액이 부족합니다.");
+        }
     }
 }
