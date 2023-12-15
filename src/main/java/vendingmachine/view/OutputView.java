@@ -24,9 +24,13 @@ public class OutputView {
     public void printVendingCoinStorage(CoinStorage vendingCoinStorage) {
         printer.printLine("자판기가 보유한 동전");
         vendingCoinStorage.getCoinStorage().entrySet().forEach(this::printCoinStorageDetail);
+        printer.printEmptyLine();
     }
 
     private void printCoinStorageDetail(Entry<Coin, Integer> coinStorageDetail) {
+        if (coinStorageDetail.getValue() == 0) {
+            return;
+        }
         int coinAmount = OutputFomatter.toCoinAmount(coinStorageDetail);
         int count = OutputFomatter.toCoinCount(coinStorageDetail);
         printer.printLine("%d원 - %d개", coinAmount, count);
