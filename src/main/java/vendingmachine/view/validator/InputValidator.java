@@ -1,6 +1,7 @@
 package vendingmachine.view.validator;
 
 import vendingmachine.common.Symbol;
+import vendingmachine.util.validator.StringValidator;
 
 public class InputValidator {
     private static InputValidator inputValidator;
@@ -14,6 +15,12 @@ public class InputValidator {
             return new InputValidator();
         }
         return inputValidator;
+    }
+
+    public void validateCointStorage(String inputMoney, String target) {
+        StringValidator.validateBlank(inputMoney, target);
+        StringValidator.validateNumeric(inputMoney, target);
+        StringValidator.validateIntegerRange(inputMoney, target);
     }
 
 //    public static void validateNumber(String template, String target) {

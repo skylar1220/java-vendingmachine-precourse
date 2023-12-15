@@ -12,5 +12,13 @@ public enum Coin {
         this.amount = amount;
     }
 
+    public int calculateCount(int inputMoney) {
+        return inputMoney / amount;
+    }
+
+    public int calculateByCount(int inputMoney, int coinCount) {
+        return inputMoney - coinCount * amount;
+    }
+
     // 추가 기능 구현
 }
