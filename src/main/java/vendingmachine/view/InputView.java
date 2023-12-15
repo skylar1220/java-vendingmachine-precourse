@@ -2,13 +2,13 @@ package vendingmachine.view;
 
 
 import vendingmachine.domain.CoinStorage;
+import vendingmachine.domain.Products;
 import vendingmachine.util.converter.Converter;
 import vendingmachine.view.printer.Printer;
 import vendingmachine.view.reader.Reader;
 import vendingmachine.view.validator.InputValidator;
 
 public class InputView {
-    //    public static final String SEPARATOR = Symbol.COMMA;
     private final Reader reader;
     private final Printer printer;
     private final InputValidator validator;
@@ -30,12 +30,12 @@ public class InputView {
         return CoinStorage.fromMoney(Converter.convertToInt(inputMoney));
     }
 
-//    public Products inputProducts() {
-//        printer.printLine("");
-//        String template = reader.readLine();
-//        validator.validate(template, "템플릿");
-//        return new Template();
-//    }
+    public Products inputProducts() {
+        printer.printLine("상품명과 가격, 수량을 입력해 주세요.");
+        String products = reader.readLine();
+        validator.validateProducts(products, "상품명과 가격, 수량");
+        return Products.of(Converter.splitToTrimedList(products, InputValidator.PRODUCT_SEPARATOR));
+    }
 
 //    public Template inputTemplate() {
 //        printer.printLine("");

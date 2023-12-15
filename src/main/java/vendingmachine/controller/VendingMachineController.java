@@ -3,6 +3,7 @@ package vendingmachine.controller;
 import java.util.function.Function;
 import java.util.function.Supplier;
 import vendingmachine.domain.CoinStorage;
+import vendingmachine.domain.Products;
 import vendingmachine.view.InputView;
 import vendingmachine.view.OutputView;
 
@@ -18,7 +19,7 @@ public class VendingMachineController {
     public void run() {
         CoinStorage vendingCoinStorage = inputView.inputCointStorage();
         outputView.printVendingCoinStorage(vendingCoinStorage);
-//        Products products = inputView.inputProducts();
+        Products products = inputView.inputProducts();
     }
 
     private <T> T readWithRetry(Supplier<T> supplier) {
