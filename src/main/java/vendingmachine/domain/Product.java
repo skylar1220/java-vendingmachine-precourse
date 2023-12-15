@@ -33,4 +33,13 @@ public class Product {
     public boolean isSameName(ProductName productName) {
         return this.productName.equals(productName);
     }
+
+
+    public void sold() {
+        productCount.decrease();
+    }
+
+    public int calculateMoneyAfterBuying(int moneyInserted) {
+        return productPrice.calculateMoneyAfterBuying(moneyInserted);
+    }
 }

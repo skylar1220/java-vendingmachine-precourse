@@ -52,4 +52,8 @@ public class MoneyInserted {
     public boolean isOverOrEqual(int productPrice) {
         return moneyInserted >= productPrice;
     }
+
+    public void buy(Product product) {
+        moneyInserted = product.calculateMoneyAfterBuying(moneyInserted);
+    }
 }

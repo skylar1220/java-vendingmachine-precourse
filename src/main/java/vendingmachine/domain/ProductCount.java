@@ -1,7 +1,7 @@
 package vendingmachine.domain;
 
 public class ProductCount {
-    private final int productCount;
+    private int productCount;
 
     public ProductCount(int productCount) {
         validateRange(productCount);
@@ -20,5 +20,9 @@ public class ProductCount {
 
     public boolean isEmpty() {
         return productCount == 0;
+    }
+
+    public void decrease() {
+        productCount--;
     }
 }

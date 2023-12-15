@@ -10,6 +10,10 @@ public class CoinStorage {
         this.coinStorage = coinStorage;
     }
 
+    private static CoinStorage from(Map<Coin, Integer> coinStorage) {
+        return new CoinStorage(coinStorage);
+    }
+
     public static CoinStorage fromMoney(int inputMoney) {
         validateMoney(inputMoney);
         return new CoinStorage(convertToCoins(inputMoney));
@@ -63,5 +67,20 @@ public class CoinStorage {
 
     public Map<Coin, Integer> getCoinStorage() {
         return coinStorage;
+    }
+
+    public CoinStorage getAvailableChanges(CoinStorage requiredCoins) {
+        Map<Coin, Integer> availableCoinStorage = new EnumMap<>(Coin.class);
+        for (Coin coin : Coin.values()) {
+            int coinStock = this.coinStorage.get(coin);
+            int requiredCoinCount = requiredCoins.getCoinStorage().get(coin);
+            if (coinStock >= requiredCoinCount) {
+                availableCoinStorage.put(coin, requiredCoinCount);
+            }
+            if (coinStock < requiredCoinCount) {
+                availableCoinStorage.put(coin, coinStock);
+            }
+        }
+        return CoinStorage.from(availableCoinStorage);
     }
 }

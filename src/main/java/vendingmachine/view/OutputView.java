@@ -27,7 +27,7 @@ public class OutputView {
 
     public void printVendingCoinStorage(CoinStorage vendingCoinStorage) {
         printer.printLine("자판기가 보유한 동전");
-        vendingCoinStorage.getCoinStorage().entrySet().forEach(coinStorageDetail -> printCoinStorageDetail(coinStorageDetail));
+        vendingCoinStorage.getCoinStorage().entrySet().forEach(this::printCoinStorageDetail);
     }
 
     private void printCoinStorageDetail(Entry<Coin, Integer> coinStorageDetail) {
@@ -38,5 +38,11 @@ public class OutputView {
 
     public void printMoneyInserted(MoneyInserted moneyInserted) {
         printer.printLine("투입 금액: %d원", moneyInserted.getMoneyInserted());
+    }
+
+    public void printCustomerChanges(CoinStorage customerChangesStorage) {
+        printer.printLine("잔돈");
+        customerChangesStorage.getCoinStorage().entrySet().forEach(this::printCoinStorageDetail);
+
     }
 }

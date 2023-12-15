@@ -34,7 +34,16 @@ public class VendingMachineController {
         }
 
         ProductName selectedProductName = getSelectedProductName(vendingMachine);
+        vendingMachine.buy(selectedProductName);
 
+        if (vendingMachine.isBuyingAvailable()) {
+            return; // 상품명 입력으로 돌아가기
+        }
+        if (!vendingMachine.isBuyingAvailable()) {
+            return; // 잔돈반환으로 가기
+        }
+        CoinStorage customerChangesStorage = vendingMachine.getCustomerChanges();
+        outputView.printCustomerChanges(customerChangesStorage);
     }
 
     private ProductName getSelectedProductName(VendingMachine vendingMachine) {

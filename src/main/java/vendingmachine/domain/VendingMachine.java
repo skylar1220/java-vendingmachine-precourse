@@ -26,4 +26,15 @@ public class VendingMachine {
     public void checkAvailableProduct(ProductName productName) {
         products.checkAvailableProduct(productName);
     }
+
+    public void buy(ProductName selectedProductName) {
+        products.sell(selectedProductName);
+        Product product = products.findByName(selectedProductName);
+        moneyInserted.buy(product);
+    }
+
+    public CoinStorage getCustomerChanges() {
+        CoinStorage requiredCoins = CoinStorage.fromMoney(moneyInserted.getMoneyInserted());
+        return vendingCoinStorage.getAvailableChanges(requiredCoins);
+    }
 }

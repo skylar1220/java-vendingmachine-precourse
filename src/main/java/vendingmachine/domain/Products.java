@@ -47,4 +47,17 @@ public class Products {
         return products.stream()
                 .anyMatch(product -> product.isSameName(productName));
     }
+
+    public Product findByName(ProductName selectedProductName) {
+        return products.stream()
+                .filter(product -> product.isSameName(selectedProductName))
+                .findFirst()
+                .orElseThrow(() -> new IllegalArgumentException("상품 조회에 실패했습니다."));
+    }
+
+    public void sell(ProductName soldProductName) {
+        products.stream()
+                .filter(product -> product.isSameName(soldProductName))
+                .forEach(Product::sold);
+    }
 }

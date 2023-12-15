@@ -36,4 +36,8 @@ public class ProductPrice {
     public boolean isUnderOrEqual(MoneyInserted moneyInserted) {
         return moneyInserted.isOverOrEqual(productPrice);
     }
+
+    public int calculateMoneyAfterBuying(int moneyInserted) {
+        return moneyInserted - productPrice;
+    }
 }
