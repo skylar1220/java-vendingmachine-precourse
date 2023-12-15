@@ -18,4 +18,7 @@ public class ProductCount {
         return productPrice >= 1;
     }
 
+    public boolean isEmpty() {
+        return productCount == 0;
+    }
 }

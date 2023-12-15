@@ -4,11 +4,11 @@ import vendingmachine.util.converter.Converter;
 import vendingmachine.view.validator.InputValidator;
 
 public class Product {
-    private final String productName;
+    private final ProductName productName;
     private final ProductPrice productPrice;
     private final ProductCount productCount;
 
-    public Product(String productName, ProductPrice productPrice, ProductCount productCount) {
+    public Product(ProductName productName, ProductPrice productPrice, ProductCount productCount) {
         this.productName = productName;
         this.productPrice = productPrice;
         this.productCount = productCount;
@@ -18,6 +18,19 @@ public class Product {
         String productName = Converter.splitValue(InputValidator.PRODUCT_DETAILS_SEPARATOR, 0, product);
         String productPrice = Converter.splitValue(InputValidator.PRODUCT_DETAILS_SEPARATOR, 1, product);
         String productCount = Converter.splitValue(InputValidator.PRODUCT_DETAILS_SEPARATOR, 2, product);
-        return new Product(productName, new ProductPrice(Converter.convertToInt(productPrice)), new ProductCount(Converter.convertToInt(productCount)));
+        return new Product(new ProductName(productName), new ProductPrice(Converter.convertToInt(productPrice)),
+                new ProductCount(Converter.convertToInt(productCount)));
+    }
+
+    public boolean isSoldOut() {
+        return productCount.isEmpty();
+    }
+
+    public boolean isPriceUnderOrEqual(MoneyInserted moneyInserted) {
+        return productPrice.isUnderOrEqual(moneyInserted);
+    }
+
+    public boolean isSameName(ProductName productName) {
+        return this.productName.equals(productName);
     }
 }

@@ -16,4 +16,35 @@ public class Products {
                 .collect(Collectors.toList());
         return new Products(products);
     }
+
+    public boolean isEmpty() {
+        return products.stream()
+                .allMatch(Product::isSoldOut);
+    }
+
+    public boolean hasProductofPriceOver(MoneyInserted moneyInserted) {
+        return products.stream()
+                .filter(product -> !product.isSoldOut())
+                .anyMatch(product -> product.isPriceUnderOrEqual(moneyInserted));
+    }
+
+    public void checkAvailableProduct(ProductName productName) {
+        if (!isRegisteredProduct(productName)) {
+            throw new IllegalArgumentException("등록되지 않은 상품입니다.");
+        }
+        if (isSoldOutProduct(productName)) {
+            throw new IllegalArgumentException("품절 상품입니다.");
+        }
+    }
+
+    private boolean isSoldOutProduct(ProductName productName) {
+        return products.stream()
+                .filter(product -> product.isSameName(productName))
+                .allMatch(Product::isSoldOut);
+    }
+
+    private boolean isRegisteredProduct(ProductName productName) {
+        return products.stream()
+                .anyMatch(product -> product.isSameName(productName));
+    }
 }

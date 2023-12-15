@@ -3,6 +3,8 @@ package vendingmachine.controller;
 import java.util.function.Function;
 import java.util.function.Supplier;
 import vendingmachine.domain.CoinStorage;
+import vendingmachine.domain.MoneyInserted;
+import vendingmachine.domain.ProductName;
 import vendingmachine.domain.Products;
 import vendingmachine.domain.VendingMachine;
 import vendingmachine.view.InputView;
@@ -23,7 +25,22 @@ public class VendingMachineController {
         Products products = inputView.inputProducts();
         VendingMachine vendingMachine = VendingMachine.of(vendingCoinStorage, products);
 
-        vendingMachine.insertMoney(inputView.inputMoneyInserted());
+        MoneyInserted moneyInserted = inputView.inputMoneyInserted();
+        vendingMachine.insertMoney(moneyInserted);
+        outputView.printMoneyInserted(moneyInserted);
+
+        if (!vendingMachine.isBuyingAvailable()) {
+            return; // 잔돈반환으로 가기
+        }
+
+        ProductName selectedProductName = getSelectedProductName(vendingMachine);
+
+    }
+
+    private ProductName getSelectedProductName(VendingMachine vendingMachine) {
+        ProductName selectedProductName = inputView.inputSelectedProduct();
+        vendingMachine.checkAvailableProduct(selectedProductName);
+        return selectedProductName;
     }
 
     private <T> T readWithRetry(Supplier<T> supplier) {

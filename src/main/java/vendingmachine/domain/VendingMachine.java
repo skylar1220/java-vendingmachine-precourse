@@ -18,4 +18,12 @@ public class VendingMachine {
     public void insertMoney(MoneyInserted moneyInserted) {
         this.moneyInserted.apply(moneyInserted);
     }
+
+    public boolean isBuyingAvailable() {
+        return products.isEmpty() && products.hasProductofPriceOver(moneyInserted);
+    }
+
+    public void checkAvailableProduct(ProductName productName) {
+        products.checkAvailableProduct(productName);
+    }
 }

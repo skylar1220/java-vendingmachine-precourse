@@ -32,4 +32,8 @@ public class ProductPrice {
     private boolean isValidUnit(int productPrice) {
         return productPrice % 10 == 0;
     }
+
+    public boolean isUnderOrEqual(MoneyInserted moneyInserted) {
+        return moneyInserted.isOverOrEqual(productPrice);
+    }
 }

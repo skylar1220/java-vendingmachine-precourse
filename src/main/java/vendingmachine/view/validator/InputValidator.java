@@ -83,6 +83,10 @@ public class InputValidator {
         StringValidator.validateIntegerRange(moneyInserted, target);
     }
 
+    public void validateSelectedProduct(String selectedProduct, String target) {
+        StringValidator.validateBlank(selectedProduct, target);
+    }
+
 //    public static void validateNumber(String template, String target) {
 //        StringValidator.validateBlank(template, target);
 //        StringValidator.validateNumeric(template, target);

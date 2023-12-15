@@ -44,4 +44,12 @@ public class MoneyInserted {
     public void apply(MoneyInserted moneyInserted) {
         this.moneyInserted = moneyInserted.moneyInserted;
     }
+
+    public int getMoneyInserted() {
+        return moneyInserted;
+    }
+
+    public boolean isOverOrEqual(int productPrice) {
+        return moneyInserted >= productPrice;
+    }
 }

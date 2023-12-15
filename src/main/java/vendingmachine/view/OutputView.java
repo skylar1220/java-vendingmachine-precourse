@@ -3,6 +3,7 @@ package vendingmachine.view;
 import java.util.Map.Entry;
 import vendingmachine.domain.Coin;
 import vendingmachine.domain.CoinStorage;
+import vendingmachine.domain.MoneyInserted;
 import vendingmachine.view.formatter.OutputFomatter;
 import vendingmachine.view.printer.Printer;
 
@@ -33,5 +34,9 @@ public class OutputView {
         int coinAmount = OutputFomatter.toCoinAmount(coinStorageDetail);
         int count = OutputFomatter.toCoinCount(coinStorageDetail);
         printer.printLine("%d원 - %d개", coinAmount, count);
+    }
+
+    public void printMoneyInserted(MoneyInserted moneyInserted) {
+        printer.printLine("투입 금액: %d원", moneyInserted.getMoneyInserted());
     }
 }
