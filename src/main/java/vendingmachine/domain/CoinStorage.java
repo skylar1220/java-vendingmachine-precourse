@@ -6,7 +6,7 @@ import java.util.Map;
 public class CoinStorage {
     private final Map<Coin, Integer> coinStorage;
 
-    public CoinStorage(Map<Coin, Integer> coinStorage) {
+    private CoinStorage(Map<Coin, Integer> coinStorage) {
         this.coinStorage = coinStorage;
     }
 

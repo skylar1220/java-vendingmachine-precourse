@@ -9,7 +9,7 @@ public class VendingMachine {
     private final Products products;
     private final MoneyInserted moneyInserted;
 
-    public VendingMachine(CoinStorage vendingCoinStorage, Products products, MoneyInserted moneyInserted) {
+    private VendingMachine(CoinStorage vendingCoinStorage, Products products, MoneyInserted moneyInserted) {
         this.vendingCoinStorage = vendingCoinStorage;
         this.products = products;
         this.moneyInserted = moneyInserted;

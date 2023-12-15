@@ -9,7 +9,7 @@ public class Product {
     private final ProductPrice productPrice;
     private final ProductCount productCount;
 
-    public Product(ProductName productName, ProductPrice productPrice, ProductCount productCount) {
+    private Product(ProductName productName, ProductPrice productPrice, ProductCount productCount) {
         this.productName = productName;
         this.productPrice = productPrice;
         this.productCount = productCount;

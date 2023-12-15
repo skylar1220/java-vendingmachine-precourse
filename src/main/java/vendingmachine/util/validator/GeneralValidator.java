@@ -1,6 +1,5 @@
 package vendingmachine.util.validator;
 
-import java.util.HashSet;
 import java.util.List;
 import vendingmachine.util.converter.Converter;
 
@@ -37,19 +36,6 @@ public class GeneralValidator {
         }
     }
 
-    public static void validateListForDuplicates(List<String> values, String message) {
-        if (hasDuplicates(values)) {
-            throw new IllegalArgumentException(message);
-        }
-    }
-
-    public static void validateMinimumSplitCount(String seperator, String value, int minSplittedCount, String target) {
-        List<String> values = Converter.splitToList(seperator, value);
-        if (!hasOverMinCount(values, minSplittedCount)) {
-            throw new IllegalArgumentException(String.format("%s은(는) 최소 %d개 이상이여야 합니다.", target, minSplittedCount));
-        }
-    }
-
     public static void validateSplitCount(String seperator, String value, int requiredCount, String target) {
         List<String> values = Converter.splitToList(seperator, value);
         if (!hasValidCount(values, requiredCount)) {
@@ -66,14 +52,6 @@ public class GeneralValidator {
     private static boolean containsDuplicateSubstring(String substring, String value) {
         String doubleSubstring = substring + substring;
         return value.contains(doubleSubstring);
-    }
-
-    private static boolean hasDuplicates(List<String> values) {
-        return new HashSet<>(values).size() != values.size();
-    }
-
-    private static boolean hasOverMinCount(List<String> values, int minSplittedCount) {
-        return values.size() >= minSplittedCount;
     }
 
     private static boolean hasValidCount(List<String> values, int requiredCount) {

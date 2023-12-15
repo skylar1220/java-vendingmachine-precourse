@@ -5,7 +5,7 @@ import vendingmachine.domain.product.Product;
 public class MoneyInserted {
     private int moneyInserted;
 
-    public MoneyInserted(int moneyInserted) {
+    private MoneyInserted(int moneyInserted) {
         this.moneyInserted = moneyInserted;
     }
 
