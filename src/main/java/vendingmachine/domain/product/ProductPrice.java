@@ -3,6 +3,8 @@ package vendingmachine.domain.product;
 import vendingmachine.domain.MoneyInserted;
 
 public class ProductPrice {
+    public static final int MIN_PRODUCT_PRICE = 100;
+    public static final int PRODUCT_PRICE_UNIT = 10;
     private final int productPrice;
 
     public ProductPrice(int productPrice) {
@@ -22,7 +24,7 @@ public class ProductPrice {
     }
 
     private boolean isInRange(int productPrice) {
-        return productPrice >= 100;
+        return productPrice >= MIN_PRODUCT_PRICE;
     }
 
     private void validateUnit(int productPrice) {
@@ -32,7 +34,7 @@ public class ProductPrice {
     }
 
     private boolean isValidUnit(int productPrice) {
-        return productPrice % 10 == 0;
+        return productPrice % PRODUCT_PRICE_UNIT == 0;
     }
 
     public boolean isUnderOrEqual(MoneyInserted moneyInserted) {
