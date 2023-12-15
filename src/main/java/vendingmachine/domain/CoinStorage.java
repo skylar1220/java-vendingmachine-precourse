@@ -79,6 +79,7 @@ public class CoinStorage {
             int remainingMoney = coin.calculateByCount(availableCount);
 
             availableCoinStorage.put(coin, availableCount);
+            coinStorage.put(coin, coinStorage.getOrDefault(coin, coinStock - availableCount));
             inputMoney -= remainingMoney;
         }
         return CoinStorage.from(availableCoinStorage);
