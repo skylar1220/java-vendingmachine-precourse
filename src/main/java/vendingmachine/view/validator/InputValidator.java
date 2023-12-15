@@ -40,6 +40,7 @@ public class InputValidator {
         String productName = Converter.splitValue(separator, 0, product);
         StringValidator.validateBlank(productName, target);
     }
+
     private void validateProductPrice(String separator, String product, String target) {
         String productPrice = Converter.splitValue(separator, 1, product);
         StringValidator.validateBlank(productPrice, target);
@@ -74,6 +75,12 @@ public class InputValidator {
     private void validateBracket(String rawProduct, String target) {
         GeneralValidator.validateStartsWith(Symbol.LEFT_BRACKET, rawProduct, target);
         GeneralValidator.validateEndsWith(Symbol.RIGHT_BRACKET, rawProduct, target);
+    }
+
+    public void validateMoneyInserted(String moneyInserted, String target) {
+        StringValidator.validateBlank(moneyInserted, target);
+        StringValidator.validateNumeric(moneyInserted, target);
+        StringValidator.validateIntegerRange(moneyInserted, target);
     }
 
 //    public static void validateNumber(String template, String target) {

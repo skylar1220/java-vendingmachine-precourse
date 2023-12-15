@@ -4,6 +4,7 @@ import java.util.function.Function;
 import java.util.function.Supplier;
 import vendingmachine.domain.CoinStorage;
 import vendingmachine.domain.Products;
+import vendingmachine.domain.VendingMachine;
 import vendingmachine.view.InputView;
 import vendingmachine.view.OutputView;
 
@@ -20,6 +21,9 @@ public class VendingMachineController {
         CoinStorage vendingCoinStorage = inputView.inputCointStorage();
         outputView.printVendingCoinStorage(vendingCoinStorage);
         Products products = inputView.inputProducts();
+        VendingMachine vendingMachine = VendingMachine.of(vendingCoinStorage, products);
+
+        vendingMachine.insertMoney(inputView.inputMoneyInserted());
     }
 
     private <T> T readWithRetry(Supplier<T> supplier) {

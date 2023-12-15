@@ -2,6 +2,7 @@ package vendingmachine.view;
 
 
 import vendingmachine.domain.CoinStorage;
+import vendingmachine.domain.MoneyInserted;
 import vendingmachine.domain.Products;
 import vendingmachine.util.converter.Converter;
 import vendingmachine.view.printer.Printer;
@@ -35,6 +36,13 @@ public class InputView {
         String products = reader.readLine();
         validator.validateProducts(products, "상품명과 가격, 수량");
         return Products.of(Converter.splitToTrimedList(products, InputValidator.PRODUCT_SEPARATOR));
+    }
+
+    public MoneyInserted inputMoneyInserted() {
+        printer.printLine("투입 금액을 입력해 주세요.");
+        String moneyInserted = reader.readLine();
+        validator.validateMoneyInserted(moneyInserted, "투입 금액");
+        return MoneyInserted.from(Converter.convertToInt(moneyInserted));
     }
 
 //    public Template inputTemplate() {
