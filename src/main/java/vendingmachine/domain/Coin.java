@@ -16,9 +16,11 @@ public enum Coin {
         return inputMoney / amount;
     }
 
-    public int calculateByCount(int inputMoney, int coinCount) {
-        return inputMoney - coinCount * amount;
+    public int calculateByCount(int coinCount) {
+        return coinCount * amount;
     }
 
-    // 추가 기능 구현
+    public int getAmount() {
+        return amount;
+    }
 }

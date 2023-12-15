@@ -17,12 +17,11 @@ public class CoinStorage {
 
     private static Map<Coin, Integer> convertToCoins(int inputMoney) {
         Map<Coin, Integer> coinStorage = initializeCointStorage();
-        int remainingMoney = inputMoney;
 
         for (Coin coin : Coin.values()) {
-            int coinCount = coin.calculateCount(remainingMoney);
+            int coinCount = coin.calculateCount(inputMoney);
             coinStorage.put(coin, coinStorage.getOrDefault(coin, 0) + coinCount);
-            remainingMoney -= coin.calculateByCount(remainingMoney, coinCount);
+            inputMoney -= coin.calculateByCount(coinCount);
         }
 
         return coinStorage;

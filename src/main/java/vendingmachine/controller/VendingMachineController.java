@@ -16,7 +16,8 @@ public class VendingMachineController {
     }
 
     public void run() {
-        CoinStorage coinStorage = inputView.inputCointStorage();
+        CoinStorage vendingCoinStorage = inputView.inputCointStorage();
+        outputView.printVendingCoinStorage(vendingCoinStorage);
 //        Products products = inputView.inputProducts();
     }
 
